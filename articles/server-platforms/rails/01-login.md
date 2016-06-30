@@ -23,7 +23,7 @@ This tutorial and seed project have been tested with the following:
 
 Add the following dependencies to your `Gemfile` and run `bundle install`
 
-${snippet(meta.snippets.dependencies)}
+${snippet(meta.snippets.dependencies-01-login)}
 
 ### 2. Initialize Omniauth Auth0
 
