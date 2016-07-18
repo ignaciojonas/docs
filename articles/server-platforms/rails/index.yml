@@ -12,6 +12,7 @@ alias:
   - omniauth
 seo_alias: rails
 articles:
+  - 00-introduction
   - 01-login
   - 02-custom-login
   - 03-user-profile
