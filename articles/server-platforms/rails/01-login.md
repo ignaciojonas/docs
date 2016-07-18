@@ -3,7 +3,7 @@ title: Login
 description: This tutorial will show you how to use the Auth0 Ruby On Rails SDK to add authentication and authorization to your web app.
 ---
 
-## Ruby On Rails Web App Tutorial
+## Ruby On Rails - Login
 
 ::: panel-info System Requirements
 This tutorial and seed project have been tested with the following:
@@ -19,23 +19,16 @@ This tutorial and seed project have been tested with the following:
   pkgType: 'server'
 }) %>
 
-**Otherwise, Please follow the steps below to configure your existing Ruby On Rails WebApp to use it with Auth0.**
 
-### 1. Add dependencies
-
-Add the following dependencies to your `Gemfile` and run `bundle install`
-
-${snippet(meta.snippets.dependencies)}
-
-### 2. Initialize Omniauth Auth0
+### 1. Initialize Omniauth Auth0
 
 Create a file named `auth0.rb` under `config/initializers` with the following content:
 
 ${snippet(meta.snippets.setup)}
 
-> **Note**: this tutorial makes use of omniauth-auth0, a custom strategy for the OmniAuth authentication library. To learn more about OmniAuth, [click here](https://github.com/intridea/omniauth#omniauth-standardized-multi-provider-authentication).
+> **NOTE**: this tutorial makes use of omniauth-auth0, a custom strategy for the OmniAuth authentication library. To learn more about OmniAuth, [click here](https://github.com/intridea/omniauth#omniauth-standardized-multi-provider-authentication).
 
-### 3. Add the Auth0 callback handler
+### 2. Add the Auth0 callback handler
 
 Use the following command to create the controller that will handle Auth0 callback:
 
@@ -52,7 +45,7 @@ class Auth0Controller < ApplicationController
     # and the IdP
     session[:userinfo] = request.env['omniauth.auth']
 
-    # Redirect to the URL you want after successfull auth
+    # Redirect to the URL you want after successful auth
     redirect_to '/dashboard'
   end
 
@@ -70,20 +63,12 @@ get "/auth/auth0/callback" => "auth0#callback"
 get "/auth/failure" => "auth0#failure"
 ```
 
-### 4. Specify the callback on Auth0 Dashboard
-
-${include('../_callbackRegularWebApp')}
-
-In this case, the callbackURL should look something like:
-
-```
-http://yourUrl/auth/auth0/callback
-```
-### 5. Triggering login integrating the Auth0Lock or auth0.js
+### 3. Triggering login integrating the Auth0Lock or auth0.js
 
 ${lockSDK}
 
-> **Note:** Please note that the `redirectUrl` specified in the `Auth0Lock` constructor **must match** the callback specified in the previous step
+
+> **NOTE:** Please note that the `callbackURL` specified in the `Auth0Lock` constructor **must match** the one specified in [Introduction](/quickstart/webapp/rails/00-introduction).
 
 Also if you need to force an identity provider just redirect to Omniauth's path like this:
 
@@ -93,7 +78,7 @@ redirect_to '/auth/auth0?connection=CONNECTION_NAME'
 
 > [Click here](https://github.com/intridea/omniauth/wiki/Auth-Hash-Schema) to check all the information that the userinfo hash has.
 
-### 6. You're done!
+### 4. You're done!
 
 You have configured your Ruby on Rails Webapp to use Auth0. Congrats, you're awesome!
 
@@ -147,13 +132,13 @@ You can change to use In-Memory store for development as follows.
 ```ruby
 Rails.application.config.session_store :cache_store
 ```
-2. Go to `/config/enviroments/development.rb` and add the following
+2. Go to `/config/enviroments/development.rb` and add the following:
 
 ```ruby
 config.cachestore = :memorystore
 ```
 
-For production, we recommend using another memory store like MemCached or something similar
+For production, we recommend using another memory store like MemCached or something similar.
 
 #### Troubleshooting SSL issues
 
@@ -194,7 +179,7 @@ Example of an error message that may occur:
 omniauth: (auth0) Authentication failure! invalid_credentials: OAuth2::Error, server_error: The redirect URI is wrong. You send [wrong url], and we expected [callback url set in your app settings]
 ```
 
-To fix the above error, add the following at your config/environments/staging.rb or production.rb
+To fix the above error, add the following at your `config/environments/staging.rb` or `production.rb`:
 
 ```ruby
 OmniAuth.config.full_host = "http://www.example.com"
