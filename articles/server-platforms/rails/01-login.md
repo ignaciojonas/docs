@@ -1,14 +1,15 @@
 ---
 title: Login
-description: This tutorial will show you how to use the Auth0 Ruby On Rails SDK to add authentication and authorization to your web app.
+description: Learn how to login using the Auth0 Lock widget and OmniAuth.
 ---
 
 ## Ruby On Rails - Login
+In this step you'll learn how to add authentication to your Rails application using the Auth0 Lock widget and the OmniAuth authentication library.
 
 ::: panel-info System Requirements
 This tutorial and seed project have been tested with the following:
 * Ruby 2.3.1
-* Rails 4.2.6
+* Rails 5.0.0
 :::
 
 <%= include('../../_includes/_package', {
@@ -19,14 +20,13 @@ This tutorial and seed project have been tested with the following:
   pkgType: 'server'
 }) %>
 
-
 ### 1. Initialize Omniauth Auth0
 
 Create a file named `auth0.rb` under `config/initializers` with the following content:
 
 ${snippet(meta.snippets.setup)}
 
-> **NOTE**: this tutorial makes use of omniauth-auth0, a custom strategy for the OmniAuth authentication library. To learn more about OmniAuth, [click here](https://github.com/intridea/omniauth#omniauth-standardized-multi-provider-authentication).
+> **NOTE**: this tutorial makes use of omniauth-auth0, a custom OmniAuth strategy. To learn more about OmniAuth, [click here](https://github.com/intridea/omniauth#omniauth-standardized-multi-provider-authentication).
 
 ### 2. Add the Auth0 callback handler
 
