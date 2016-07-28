@@ -38,22 +38,24 @@ Add the following method to `/app/assets/javascripts/home.js.rb`:
 
 ```js
 function linkPasswordAccount(){
-		connection = $("#link_provider").val();
-    var opts = {
-			callbackURL: '${ "<%= Rails.application.secrets.auth0_callback_url %>" }',
-      rememberLastLogin: false,
-      dict: {
-        signin: {
-          title: 'Link another account'
-        }
-      }
-    };
-    if (connection){
-      opts.connections = [connection];
+	connection = $("#link_provider").val();
+  var linkOptions = {
+		auth: {
+			redirectUrl: '${' <%= Rails.application.secrets.auth0_callback_url %> '}',
+    	allowLogin: true
+		},
+    languageDictionary: {
+    	title: 'Link another account'
     }
-    //open lock in signin mode, with the customized options for linking
-    lock.showSignin(opts);
+  };
+  if (connection){
+    linkOptions.allowedConnections = [connection];
   }
+	var linkLock = new Auth0Lock('${'<%= Rails.application.secrets.auth0_client_id %> '}', '${'<%= Rails.application.secrets.auth0_domain %> '}', linkOptions);
+
+  //open lock in signin mode, with the customized options for linking
+  linkLock.show();
+}
 ```
 
 ### 3. Create the Settings view
