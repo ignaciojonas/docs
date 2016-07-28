@@ -1,0 +1,8 @@
+added:
+  -
+  title: "Added authorization section to rails quickstart"
+  tags:
+    - rails
+    - quickstart
+  description: |
+    Added section 07 "authorization" to [rails quickstart](https://auth0.com/docs/quickstart/webapp/rails)
