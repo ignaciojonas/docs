@@ -12,8 +12,14 @@ This tutorial and seed project have been tested with the following:
 * Rails 5.0.0
 :::
 
-<%= include('../../_includes/_package', { githubUrl: 'https://github.com/auth0-samples/auth0-rubyonrails-sample/tree/master/01-Login' }) %>
-
+<%= include('../../_includes/_package', {
+  githubUrl: 'https://github.com/auth0-samples/auth0-rubyonrails-sample',
+  pkgRepo: 'auth0-rubyonrails-sample',
+  pkgBranch: 'master',
+  pkgPath: '01-Login',
+  pkgFilePath: null,
+  pkgType: 'server'
+}) %>
 
 ### 1. Initialize Omniauth Auth0
 
