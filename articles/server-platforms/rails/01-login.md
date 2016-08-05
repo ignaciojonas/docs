@@ -87,22 +87,30 @@ You have configured your Ruby on Rails Webapp to use Auth0. Congrats, you're awe
 
 #### Checking if the user is authenticated
 
-You can add the following parent controller to all pages that need the user to be authenticated:
+You can use a controller concern to control access to routes that need the user to be authenticated:
 
 ```ruby
-class SecuredController < ApplicationController
+module Secured
+  extend ActiveSupport::Concern
 
-  before_action :logged_in_using_omniauth?
-
-  private
-
-  def logged_in_using_omniauth?
-    unless session[:userinfo].present?
-      # Redirect to page that has the login here
-      redirect_to '/'
-    end
+  included do
+    before_action :logged_in_using_omniauth?
   end
 
+  def logged_in_using_omniauth?
+    redirect_to '/' unless session[:userinfo].present?
+  end
+end
+```
+
+Include the concern in the corresponding controller to prevent unauthenticated users from accessing its routes:
+
+```ruby
+class DashboardController < ApplicationController
+ include Secured
+
+  def show
+  end
 end
 ```
 
